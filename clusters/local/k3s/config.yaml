@@ -1,0 +1,17 @@
+# k3s configuration file
+# Location on server: /etc/rancher/k3s/config.yaml
+
+# Disable traefik - we will install our own ingress controller
+disable:
+  - traefik
+
+# Write kubeconfig with correct permissions
+write-kubeconfig-mode: "0644"
+
+# Cluster DNS
+cluster-dns: "10.43.0.10"
+
+# Node labels for identification
+node-label:
+  - "environment=local"
+  - "platform=k3s"
