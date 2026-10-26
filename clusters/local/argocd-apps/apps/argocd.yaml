@@ -11,6 +11,9 @@ spec:
     - repoURL: https://argoproj.github.io/argo-helm
       chart: argo-cd
       targetRevision: 7.8.23
+      helm:
+        valueFiles:
+          - $values/clusters/local/argocd/values.yaml
     - repoURL: https://github.com/Abderraoufzekkour/k8s-gitops-platform.git
       targetRevision: main
       ref: values
