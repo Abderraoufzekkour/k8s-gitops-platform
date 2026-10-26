@@ -26,6 +26,7 @@ server:
     hostname: argocd.local
 
 repoServer:
+  initContainers: []
   resources:
     requests:
       cpu: 100m
