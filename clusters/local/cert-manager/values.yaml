@@ -1,0 +1,16 @@
+# cert-manager Helm values
+# Production-grade configuration for local k3s cluster
+
+# Install CRDs as part of Helm install
+# Default is false - we must enable this explicitly
+crds:
+  enabled: true
+
+# Resource limits for the main controller
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 200m
+    memory: 128Mi
