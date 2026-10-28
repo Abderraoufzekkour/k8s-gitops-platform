@@ -1,0 +1,56 @@
+# kube-prometheus-stack Helm values
+# Production-grade configuration for local k3s cluster
+
+grafana:
+  # Admin credentials
+  adminPassword: "grafana123"
+
+  # Expose via ingress-nginx
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - grafana.local
+
+  # Resource limits
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 256Mi
+
+prometheus:
+  prometheusSpec:
+    # Resource limits
+    resources:
+      requests:
+        cpu: 200m
+        memory: 512Mi
+      limits:
+        cpu: 500m
+        memory: 1Gi
+
+    # Retention - how long to keep metrics
+    retention: 7d
+
+    # Storage
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 5Gi
+
+alertmanager:
+  # Keep it minimal for local setup
+  alertmanagerSpec:
+    resources:
+      requests:
+        cpu: 50m
+        memory: 64Mi
+      limits:
+        cpu: 200m
+        memory: 128Mi
