@@ -2,17 +2,20 @@
 # Production-grade configuration for local k3s cluster
 
 grafana:
-  # Admin credentials
   adminPassword: "grafana123"
 
-  # Expose via ingress-nginx
   ingress:
     enabled: true
     ingressClassName: nginx
     hosts:
       - grafana.local
+    tls:
+      - secretName: grafana-tls
+        hosts:
+          - grafana.local
+    annotations:
+      cert-manager.io/cluster-issuer: "local-ca-issuer"
 
-  # Resource limits
   resources:
     requests:
       cpu: 100m
@@ -23,7 +26,6 @@ grafana:
 
 prometheus:
   prometheusSpec:
-    # Resource limits
     resources:
       requests:
         cpu: 200m
@@ -31,11 +33,7 @@ prometheus:
       limits:
         cpu: 500m
         memory: 1Gi
-
-    # Retention - how long to keep metrics
     retention: 7d
-
-    # Storage
     storageSpec:
       volumeClaimTemplate:
         spec:
@@ -45,7 +43,6 @@ prometheus:
               storage: 5Gi
 
 alertmanager:
-  # Keep it minimal for local setup
   alertmanagerSpec:
     resources:
       requests:
