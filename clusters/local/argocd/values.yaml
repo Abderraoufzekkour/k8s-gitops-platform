@@ -6,11 +6,9 @@ global:
 
 configs:
   params:
-    # Run server without TLS (TLS handled by ingress-nginx)
     server.insecure: true
 
 server:
-  # Resource limits
   resources:
     requests:
       cpu: 100m
@@ -19,13 +17,16 @@ server:
       cpu: 500m
       memory: 256Mi
 
-  # Ingress configuration
   ingress:
     enabled: true
     ingressClassName: nginx
     hostname: argocd.local
+    tls: true
+    annotations:
+      cert-manager.io/cluster-issuer: "local-ca-issuer"
 
 repoServer:
+  initContainers: []
   resources:
     requests:
       cpu: 100m
