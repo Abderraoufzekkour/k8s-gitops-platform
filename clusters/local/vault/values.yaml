@@ -1,0 +1,60 @@
+# Vault Production - Raft storage, auto-unsealed via Transit
+
+global:
+  enabled: true
+
+server:
+  dev:
+    enabled: false
+
+  replicas: 1
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+  dataStorage:
+    enabled: true
+    size: 2Gi
+    storageClass: null
+    accessMode: ReadWriteOnce
+
+  ha:
+    enabled: true
+    replicas: 1
+    raft:
+      enabled: true
+      setNodeId: true
+      config: |
+        ui = true
+
+        listener "tcp" {
+          tls_disable = 1
+          address = "[::]:8200"
+          cluster_address = "[::]:8201"
+        }
+
+        storage "raft" {
+          path = "/vault/data"
+        }
+
+        seal "transit" {
+          address         = "http://vault-transit.vault.svc.cluster.local:8200"
+          token           = "transit-root-token"
+          disable_renewal = "false"
+          key_name        = "autounseal"
+          mount_path      = "transit/"
+        }
+
+        service_registration "kubernetes" {}
+
+ui:
+  enabled: true
+  serviceType: ClusterIP
+
+injector:
+  enabled: true
