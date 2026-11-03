@@ -1,0 +1,26 @@
+# Vault Transit - auto-unsealer for production Vault
+# Dev mode - only stores the transit unseal key
+
+global:
+  enabled: true
+
+server:
+  dev:
+    enabled: true
+    devRootToken: "transit-root-token"
+
+  replicas: 1
+
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 200m
+      memory: 128Mi
+
+ui:
+  enabled: false
+
+injector:
+  enabled: false
