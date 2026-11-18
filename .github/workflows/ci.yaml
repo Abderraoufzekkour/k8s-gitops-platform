@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  yamllint:
+    name: Lint YAML
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install yamllint
+        run: pip install yamllint
+
+      - name: Run yamllint
+        run: yamllint -c .yamllint.yaml .
+
+  kubeval:
+    name: Validate Kubernetes manifests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install kubeval
+        run: |
+          curl -sSL https://github.com/instrumenta/kubeval/releases/latest/download/kubeval-linux-amd64.tar.gz | tar xz
+          sudo mv kubeval /usr/local/bin/
+
+      - name: Run kubeval
+        run: |
+          find clusters/ -name "*.yaml" \
+            ! -name "values.yaml" \
+            ! -name "values-transit.yaml" \
+            ! -name "config.yaml" \
+            | xargs kubeval --ignore-missing-schemas
