@@ -1,0 +1,7 @@
+# Envoy Gateway Helm values
+# Replaces ingress-nginx - Gateway API controller
+
+config:
+  envoyGateway:
+    gateway:
+      controllerName: gateway.envoyproxy.io/gatewayclass-controller
