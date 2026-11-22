@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: envoy-gateway-tls
+  namespace: envoy-gateway-system
+spec:
+  secretName: envoy-gateway-tls
+  issuerRef:
+    name: local-ca-issuer
+    kind: ClusterIssuer
+  dnsNames:
+    - "argocd.local"
+    - "grafana.local"
+    - "app.local"
