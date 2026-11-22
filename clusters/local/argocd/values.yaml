@@ -18,12 +18,7 @@ server:
       memory: 256Mi
 
   ingress:
-    enabled: true
-    ingressClassName: nginx
-    hostname: argocd.local
-    tls: true
-    annotations:
-      cert-manager.io/cluster-issuer: "local-ca-issuer"
+    enabled: false
 
 repoServer:
   initContainers: []
