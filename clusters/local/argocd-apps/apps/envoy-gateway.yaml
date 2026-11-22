@@ -8,7 +8,7 @@ metadata:
 spec:
   project: default
   sources:
-    - repoURL: https://charts.envoyproxy.io
+    - repoURL: https://gateway.envoyproxy.io/helm-charts
       chart: gateway-helm
       targetRevision: v1.3.2
       helm:
