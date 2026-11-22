@@ -8,7 +8,7 @@ metadata:
 spec:
   project: default
   sources:
-    - repoURL: https://gateway.envoyproxy.io/helm-charts
+    - repoURL: docker.io/envoyproxy
       chart: gateway-helm
       targetRevision: v1.3.2
       helm:
@@ -26,3 +26,5 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+      - ServerSideApply=true
+
