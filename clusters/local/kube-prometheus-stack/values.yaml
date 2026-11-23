@@ -5,16 +5,7 @@ grafana:
   adminPassword: "grafana123"
 
   ingress:
-    enabled: true
-    ingressClassName: nginx
-    annotations:
-      cert-manager.io/cluster-issuer: "local-ca-issuer"
-    hosts:
-      - grafana.local
-    tls:
-      - secretName: grafana-tls
-        hosts:
-          - grafana.local
+    enabled: false
 
   resources:
     requests:
@@ -51,3 +42,4 @@ alertmanager:
       limits:
         cpu: 200m
         memory: 128Mi
+      memory: 128Mi
