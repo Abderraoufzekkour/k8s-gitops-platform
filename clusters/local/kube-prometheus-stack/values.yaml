@@ -42,3 +42,4 @@ alertmanager:
       limits:
         cpu: 200m
         memory: 128Mi
+      memory: 128Mi
