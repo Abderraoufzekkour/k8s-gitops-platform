@@ -1,0 +1,4 @@
+vault_address       = "http://127.0.0.1:8200"
+kubernetes_host     = "https://kubernetes.default.svc"
+eso_namespace       = "external-secrets"
+eso_service_account = "external-secrets"
